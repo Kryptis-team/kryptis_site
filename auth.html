@@ -54,6 +54,7 @@
                     document.querySelector('.auth-section').style.display = 'none';
                     document.querySelector('.signup-section').style.display = 'block';
                 });
+                const authEndpoint = '/functions/user_info';
 
                 document.getElementById('loginForm').addEventListener('submit', async function(event) {
                     event.preventDefault();

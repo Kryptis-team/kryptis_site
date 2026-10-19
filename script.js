@@ -184,28 +184,36 @@ function applyTranslations() {
 Cette partie concerne la gestion des liens de téléchargement pour les différentes plateformes (Windows, Linux, macOS) et la mise à jour du lien de téléchargement en fonction de la sélection de l'utilisateur.
 */
 const DOWNLOAD_PATHS = {
-  windows: "latest/win/Kryptis_Setup_1.0.0.exe",
-  linux: "latest/lin/",
-  macos: "latest/mac/"
+  windows: {
+    "installer": "download/Kryptis_win.msi",
+    "portable": "download/Kryptis_win.exe"
+  },
+  linux: {
+    "deb": "download/Kryptis_linux.deb",
+    "appimage": "download/Kryptis_linux.AppImage"
+  },
+  macos: {
+    "installer": "download/Kryptis_mac.dmg",
+    "executable": "download/Kryptis_mac.app.zip"
+  }
 };
 
 
 function updateDownloadLink() {
-  const osSelect = document.getElementById("os");
+  const osSelect=document.getElementById("os");
+  const version=document.getElementById("version")
   const downloadLink = document.getElementById("downloadLink");
 
-  if (!osSelect || !downloadLink) return;
+  if (!osSelect || !downloadLink || !version) return;
 
-  const selectedOS = osSelect.value;
-  let href = "";
-
-  if(selectedOS==="windows") {
-    href=DOWNLOAD_PATHS.windows;
-  } else if (selectedOS === "linux") {
-    href = DOWNLOAD_PATHS.linux;
-  } else if(selectedOS==="macos") {
-    href=DOWNLOAD_PATHS.macos;
-  }
+  const selectedOS=osSelect.value;
+  let v = DOWNLOAD_PATHS[selectedOS]
+  let href="";
+  version.innerHTML=`<option value="${v[0]}">${v[0]}</option>
+  <option value="${v[1]}">${v[1]}</option>`
+  const selVersion=version.value;
+  href=DOWNLOAD_PATHS[selectedOS][selVersion]
+  
 
   downloadLink.href = href;
   downloadLink.setAttribute("download", "");
@@ -218,7 +226,7 @@ function updateDownloadLink() {
 async function login(email, password) {
     try {
         const response = await fetch(
-            "/.netlify/functions/user_info",
+            "/functions/user_info",
             {
                 method: "POST",
                 headers: {
@@ -254,11 +262,36 @@ async function login(email, password) {
     }
 }
 
+async function signup(name,email,password) {
+  
+  try {
+    const response = await fetch(
+      "/functions/user_info",
+      {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({
+            action: "signup",
+            name,
+            email,
+            password
+        })
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error("Erreur lors de l'inscription :", error);
+    return false;
+  }
+}
 
 async function getCurrentUser() {
     try {
         const response = await fetch(
-            "/.netlify/functions/user_info",
+            "/functions/user_info",
             {
                 method: "POST",
                 headers: {
@@ -293,7 +326,7 @@ async function getCurrentUser() {
 async function logout() {
     try {
         const response = await fetch(
-            "/.netlify/functions/user_info",
+            "/functions/user_info",
             {
                 method: "POST",
                 headers: {
@@ -331,7 +364,7 @@ async function saveHistory(
 ) {
     try {
         const response = await fetch(
-            "/.netlify/functions/save_history",
+            "/functions/save_history",
             {
                 method: "POST",
                 headers: {
@@ -377,7 +410,7 @@ Cette partie concerne l'envoie d'emails pour notifier l'administrateur du site l
 */
 
 function sendEmail(subject, body) {
-  fetch("/.netlify/functions/mail", {
+  fetch("/functions/mail", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -402,40 +435,14 @@ function sendEmail(subject, body) {
 function prepareSource() {
   const now = new Date().toISOString();
   var urlParams=new URLSearchParams(window.location.search)
-  var utm_source=urlParams.get("utm_source")
-  var infos=urlParams.get("infos")
- 
-  const referrer = document.referrer || "";
+  var source=urlParams.get("s")
+  const body=JSON.parse(fetch("emails.json").json())
+  const subject=JSON.parse(fetch("emails.json").json())
+  sendEmail(subject, body)
 
-  if (referrer.includes("gemini.google.com")) {
-    utm_source="gemini.google.com"
-  } else if (referrer.includes("copilot.microsoft.com")) {
-    utm_source=utm_source || "copilot.microsoft.com";
-  } else if (referrer.includes("claude.ai")) {
-    utm_source=utm_source || "claude.ai"
-  }
-  document.cookie = "source=" + utm_source + "; path=/; max-age=" + (60*60*24*30);
-  prepareEmails(utm_source, now, infos);
 }
 
-function prepareEmails(source, now, infos) {
-  if (source && (source.includes("chatgpt.com") || source.includes("gemini.google.com") || source.includes("copilot.microsoft.com") || source.includes("claude.ai"))) {
-    sendEmail(
-      "Accès au site depuis une IA",
-      `<p>Bonjour Joseph, un accès au site depuis une IA a été détecté le ${now}</p><br><p>Informations supplémentaires : ${infos}</p>`
-    );
-  } else if (source === "app") {
-    sendEmail(
-      "Accès au site depuis le logiciel",
-      `<p>Bonjour Joseph, un accès au site depuis le logiciel a été détecté le ${now}</p><br><p>Informations supplémentaires : ${infos}</p>`
-    );
-  } else if (source === "teams" || source === "whatsapp") {
-    sendEmail(
-      "Accès au site depuis un réseau social",
-      `<p>Bonjour Joseph, un accès au site depuis un réseau social a été détecté le ${now}</p><br><p>Informations supplémentaires : ${infos}</p>`
-    );
-  }
-}
+
 
 /*
 Fonction principale pour initialiser le site, gérer les événements et les interactions avec l'utilisateur.

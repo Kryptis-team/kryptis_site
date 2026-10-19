@@ -1,0 +1,1 @@
+module.exports = require('./functions/load_reviews.js')

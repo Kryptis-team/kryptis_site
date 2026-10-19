@@ -1,0 +1,21 @@
+{
+	"siteId": "5884eed4-46b0-4e14-83dd-7815260423ce",
+	"geolocation": {
+		"data": {
+			"city": "Marly-le-Roi",
+			"country": {
+				"code": "FR",
+				"name": "France"
+			},
+			"subdivision": {
+				"code": "IDF",
+				"name": "Île-de-France"
+			},
+			"timezone": "Europe/Paris",
+			"latitude": 48.8649,
+			"longitude": 2.0801,
+			"postalCode": "78160"
+		},
+		"timestamp": 1790939567732
+	}
+}

@@ -184,9 +184,18 @@ function applyTranslations() {
 Cette partie concerne la gestion des liens de téléchargement pour les différentes plateformes (Windows, Linux, macOS) et la mise à jour du lien de téléchargement en fonction de la sélection de l'utilisateur.
 */
 const DOWNLOAD_PATHS = {
-  windows: "latest/win/Kryptis_Setup_1.0.0.exe",
-  linux: "latest/lin/",
-  macos: "latest/mac/"
+  windows: {
+    "installer": "download/Kryptis_win.msi",
+    "portable": "download/Kryptis_win.exe"
+  },
+  linux: {
+    "deb": "download/Kryptis_linux.deb",
+    "appimage": "download/Kryptis_linux.AppImage"
+  },
+  macos: {
+    "installer": "download/Kryptis_mac.dmg",
+    "executable": "download/Kryptis_mac.app.zip"
+  }
 };
 
 
@@ -199,13 +208,8 @@ function updateDownloadLink() {
   const selectedOS = osSelect.value;
   let href = "";
 
-  if(selectedOS==="windows") {
-    href=DOWNLOAD_PATHS.windows;
-  } else if (selectedOS === "linux") {
-    href = DOWNLOAD_PATHS.linux;
-  } else if(selectedOS==="macos") {
-    href=DOWNLOAD_PATHS.macos;
-  }
+  href=DOWNLOAD_PATHS[selectedOS]
+  
 
   downloadLink.href = href;
   downloadLink.setAttribute("download", "");

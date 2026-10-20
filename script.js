@@ -1,6 +1,6 @@
-﻿/*
-Cette parte concernera les avis et le traitement des avis, ainsi que la gestion de la base de données Supabase pour les avis.
-*/
+﻿/*─────────────────────────────
+    GESTION DES AVIS
+──────────────────────────────*/
 
 // Charge les avis depuis Supabase
 async function fetchReviews() {
@@ -145,12 +145,13 @@ function renderReviews(reviews, language) {
 }
 
 
-/*
-Cette partie concerne la gestion des langues et de l'internationalisation du site, ainsi que la détection de la langue de l'utilisateur et la mise à jour de l'interface en conséquence.
-*/
+/*─────────────────────────────
+    GESTION DES LANGUES
+──────────────────────────────*/
 const SUPPORTED_LANGUAGES = ["en", "fr", "es", "it", "de"];
 const language_select = document.getElementById("languageSelect");
-const initialLanguage = normalizeLanguage(document.documentElement.lang || "en");
+const initialLanguage = normalizeLanguage(document.cookie.split("; ").find(row => row.startsWith("language="))?.split("=")[1] || navigator.language);
+const userLanguage = normalizeLanguage(navigator.language);
 
 function normalizeLanguage(language) {
   const normalized = String(language || "en").slice(0, 2).toLowerCase();
@@ -164,7 +165,7 @@ function applyTranslations() {
   let path = document.location.pathname;
 
   // Supprime le répertoire de langue actuel
-  path =  path.includes("fr"||"it"||"es"||"de") ? path.slice(2) : path;
+  path = path.includes("fr"||"it"||"es"||"de") ? path.slice(2) : path;
   
 
   // Ajoute le nouveau répertoire sauf pour l'anglais
@@ -177,24 +178,25 @@ function applyTranslations() {
     path = "/temporaire.html";
   }
   document.location.href = path;
+  document.cookie = `language=${language}; path=/; max-age=31536000`; // 1 an
 }
 
 
-/*
-Cette partie concerne la gestion des liens de téléchargement pour les différentes plateformes (Windows, Linux, macOS) et la mise à jour du lien de téléchargement en fonction de la sélection de l'utilisateur.
-*/
+/*──────────────────────────────────────
+    GESTION DES LIENS DE TÉLÉCHARGEMENT
+──────────────────────────────────────*/
 const DOWNLOAD_PATHS = {
   windows: {
-    "installer": "download/Kryptis_win.msi",
-    "portable": "download/Kryptis_win.exe"
+    "installer (msi)": "https://github.com/Kryptis-team/kryptis_app/releases/download/V2.0/kryptis_2.0_installer.msi",
+    "portable (exe)": "https://github.com/Kryptis-team/kryptis_app/releases/download/V2.0/kryptis_2.0p.exe"
   },
   linux: {
-    "deb": "download/Kryptis_linux.deb",
-    "appimage": "download/Kryptis_linux.AppImage"
+    "deb file": "https://github.com/Kryptis-team/kryptis_app/releases/download/V2.0/kryptis_2.0_amd64.deb",
+    "appimage file": "https://github.com/Kryptis-team/kryptis_app/releases/download/V2.0/Kryptis_2.0.AppImage"
   },
   macos: {
-    "installer": "download/Kryptis_mac.dmg",
-    "executable": "download/Kryptis_mac.app.zip"
+    "dmg file": "https://github.com/Kryptis-team/kryptis_app/releases/download/V2.0/Kryptis_2.0_arm64.dmg",
+    "app file": "https://github.com/Kryptis-team/kryptis_app/releases/download/V2.0/Kryptis_2.0_arm64.app.zip"
   }
 };
 
@@ -405,9 +407,10 @@ async function saveHistory(
 
 
 
-/*
-Cette partie concerne l'envoie d'emails pour notifier l'administrateur du site lorsqu'un utilisateur accède au site depuis une IA, un logiciel ou un réseau social. Les informations supplémentaires sont également incluses dans l'email.
-*/
+/*──────────────────────────────
+   ENVOI D'EMAILS
+──────────────────────────────*/
+
 
 function sendEmail(subject, body) {
   fetch("/functions/mail", {
@@ -441,12 +444,17 @@ function prepareSource() {
   sendEmail(subject, body)
 
 }
+/*──────────────────────────────
+  THEME DE COULEUR
+──────────────────────────────*/
+const deviceTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+const themeToggle = document.getElementById("themeToggle");
+const currentTheme = localStorage.getItem("theme") || deviceTheme;
 
 
-
-/*
-Fonction principale pour initialiser le site, gérer les événements et les interactions avec l'utilisateur.
-*/
+/*──────────────────────────────
+   PRÉPARATION DE LA SOURCE
+──────────────────────────────*/
 
 
 document.addEventListener("DOMContentLoaded", () => {

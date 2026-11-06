@@ -88,16 +88,6 @@
 <body>
 
 <header class="header">
-    <nav aria-label="Language selector"  >
-        <label for="languageSelect" class="visually-hidden" >Select language</label>
-        <select id="languageSelect">
-            <option value="en">English</option>
-            <option value="fr">Français</option>
-            <option value="es">Español</option>
-            <option value="it">Italiano</option>
-            <option value="de">Deutsch</option>
-        </select>
-    </nav>
     <div class="logo">
         <img src="assets/kryptis_logo.svg" alt="Kryptis Logo" id="logo">
         <p  id="nom">Kryptis</p>
@@ -108,8 +98,6 @@
         <ul class="main-nav">
             <li><a href="/index.html" >Home</a></li>
             <li><a href="/trad.html" >Online Translator</a></li>
-            <li><a href="/download.html" >Download</a></li>
-            <li><a href="/reviews.html" >Rate & Reviews</a></li>
         </ul>
     </nav>
 </header>
@@ -117,42 +105,8 @@
 <main class="main">
 
     <div class="layout">
-                            <!-- 📌 COLONNE LATÉRALE -->
-        <aside class="sidebar">
 
-            <div class="box home-actions">
 
-                <img src="assets/burger-bar.png" alt="Menu" style="height: 5em; width: auto;">
-
-            </div>
-
-        </aside>
-        <script>
-            const sidebar = document.querySelector(".sidebar");
-            const img = sidebar.querySelector("img");
-            img.addEventListener("click", () => {
-                if (sidebar.innerHTML.includes("burger-bar.png") && sidebar.innerHTML.includes("link-button")) {
-                sidebar.innerHTML += `<div class="box home-actions">
-
-                <a class="link-button" href="/download.html" >
-                    Go to downloads and install the offline software!
-                </a>
-
-                <a class="link-button" href="/trad.html" >
-                    Use online translator directly on the website!
-                </a>
-
-                <a class="link-button" href="/reviews.html" >
-                    See reviews!
-                </a>
-
-            </div>`;
-        
-                } else {
-                    sidebar.innerHTML = '<div class="box home-actions"><img src="assets/burger-bar.png" alt="Menu" style="height: 5em; width: auto;"></div>';
-                }
-            });
-        </script>
         <!-- 📌 COLONNE PRINCIPALE -->
         <div class="content">
             <!--<section class="pub">
@@ -242,12 +196,6 @@
         <a href="https://github.com/jrollo1612" target="_blank" rel="noopener noreferrer" ><img class="social-icon" src="assets/logo-github.svg"></a>
         <a href="/index.html" ><img class="social-icon" src="assets/home.svg"></a>
 
-        <h2 >Contact</h2>
-        <ul>
-            <li>
-                <a href="contact.html">Contact us</a>
-            </li>
-        </ul>
     </div>
 </footer>
 

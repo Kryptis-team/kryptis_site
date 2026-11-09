@@ -12,7 +12,7 @@
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title >Kryptis - Home</title>
+    <title >Kryptis, votre traducteur de codes au quotidien</title>
     <meta name="description" content="Encrypt and decrypt messages using various common codes! It is free and you won't have ads!">
     <meta name="keywords" content="translator, code, codes, Morse, Vigenère, key, cipher, Kryptis, encryption, decryption, encrypt, decrypt, encode, decode, cryptography, software, offline, online, download, binary, ROT13, Caesar, application, punctuation, free, fast, no ads">
     <meta name="robots" id="robotsMeta" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
@@ -37,13 +37,6 @@
     "@type": "Person",
     "name": "Joseph Rollo"
   },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4",
-    "ratingCount": "1",
-    "bestRating": "4",
-    "worstRating": "4"
-  },
   "logo": "assets/kryptis_logo.svg"
 }
     </script>
@@ -54,33 +47,6 @@
   "name": "Kryptis - Codes Translator",
   "url": "/",
 }
-</script>
-        <script>
-        fetch("reviews.json")
-        .then(res => res.json())
-        .then(reviews => {
-
-            // 1. calcul moyenne
-            const avg =
-            reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
-
-            // 2. récupérer JSON-LD
-            const script = document.getElementById("app");
-            const data = JSON.parse(script.textContent);
-
-            // 3. injecter aggregateRating
-            data.aggregateRating = {
-            "@type": "AggregateRating",
-            "ratingValue": avg.toFixed(1),
-            "ratingCount": reviews.length,
-            "bestRating": "5",
-            "worstRating": "1"
-            };
-
-            // 4. réécrire le JSON-LD
-            script.textContent = JSON.stringify(data, null, 2);
-
-        });
     </script>
     <script src="/script.js" defer></script>
     <link rel="icon" href="/assets/kryptis_logo.svg" type="image/svg+xml">
@@ -92,12 +58,12 @@
         <img src="assets/kryptis_logo.svg" alt="Kryptis Logo" id="logo">
         <p  id="nom">Kryptis</p>
     </div>
-    <h1 >Kryptis - Home</h1>
+    <h1 >Kryptis - Accueil</h1>
 
     <nav aria-label="Main navigation"  >
         <ul class="main-nav">
-            <li><a href="/index.html" >Home</a></li>
-            <li><a href="/trad.html" >Online Translator</a></li>
+            <li><a href="/index.html" >Accueil</a></li>
+            <li><a href="/trad.html" >Traducteur</a></li>
         </ul>
     </nav>
 </header>
@@ -125,57 +91,37 @@
             <iframe title="Online Translator Frame" src="/trad.html#trad-box" class="home-iframe" aria-label="Online translator preview"></iframe>
 
             <section id="description" aria-labelledby="about-title">
-                <h2 id="about-title" >About the app</h2>
+                <h2 id="about-title" >A propos de Kryptis</h2>
                 <p >
-                    Kryptis is a free project that provides tools to translate text to various codes and codes to text. It offers both an online translator and a desktop application that can be used offline. The app is designed to be fast, accurate, and user-friendly, making it easy for anyone to use regardless of their technical expertise. With support for punctuation marks and a visual interface, Kryptis is a versatile tool for anyone interested in code translation.
+                    Kryptis est un outil de codage et decodage de messages en différents codes scouts, et comprend la ponctuation.
                 </p>
             </section>
 <section id="Why-it">
-                <h2 >Why use Kryptis?</h2>
-
-                <p >
-                    Kryptis is a free and open-source project, which means that you can use it without any cost and even contribute to its development if you want.
-                </p>
-
-                <h3 >4 Key Advantages:</h3>
+                <h2 >Pouquoi utiliser Kryptis ?</h2>
 
                 <table>
                     <tr>
-                        <th >No ads!*</th>
-                        <td >Kryptis is a free project, which means you can use it without any cost.</td>
+                        <th >Pas de pubs</th>
+                        <td >Il n'y a aucune publicité sur le Kryptis, pour assurer un confort maximal.</td>
                     </tr>
 
                     <tr>
-                        <th >Fast and accurate translation</th>
-                        <td >The app provides fast and accurate translations between text and Morse code.</td>
+                        <th >Traduction rapide</th>
+                        <td >La traduction est rapide pour une meilleure expérience d'utilisation.</td>
                     </tr>
 
                     <tr>
-                        <th >Punctuation compatibility</th>
-                        <td >Kryptis supports punctuation marks, making it more versatile.</td>
-                    </tr>
-
-                    <tr>
-                        <th >Offline software with visual interface</th>
-                        <td >The app can be used offline and features a visual interface.</td>
+                        <th >Compatibilité de la ponctuation</th>
+                        <td >Kryptis supporte la ponctuation en morse, pour un codage totzal.</td>
                     </tr>
                 </table>
-                <p style="font-size: 0.9em; color: #666;">
-                    *No advertisements except for the download page. It is only to pay the store.
-                </p>
             </section>
 
             <section id="explain">
-                <h2 >A view about my history</h2>
+                <h2 >A propos du créateur</h2>
 
-                <p>I began to create a morse translator because I was a scout and it was a project to do to obtain a badge. I did it on my last year of scouting. I choose to update it recently to make it usable for a higher number of codes. Then, I updated it to Kryptis, which is what you know.</p>
-                <h2 >What is the morse code?</h2>
-                <p  id="history">
-                    The morse code is a method of transmitting text information as a series of tones, short and long.<br>
-                    It was invented by Samuel Morse in the 1830s.<br>
-                    The most famous message was <strong>S.O.S</strong>: <strong>.../---/...</strong>.<br>
-                    Today it is still used in <em><strong><a href="https://www.scouts-europe.org/scoutorama/l-apprentissage-du-morse/">Scouts</a></strong></em>.
-                </p>
+                <p>J'ai commencé à créer un traducteur de morse quand j'étais scout et c'était un projet pour obtenir un badge. C'était lors de ma dernière année de scoutisme. J'ai alors choisi d'ajouter plus de codes scouts. Je l'ai donc mis à jour sous le nom de Kryptis, etc'est ce que vous connaîssez.</p>
+
             </section>
 
         </div>
@@ -187,8 +133,8 @@
 </main>
 
 <footer class="footer">
-    <p >Copyright © 2026 JJTC. All rights reserved.</p>
-    <a href="">Kryptis</a> © 2026 by JJTC is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+    <p >Copyright © 2026 JJTC. Tout droits réservés.</p>
+    <a href="">Kryptis</a> © 2026 par JJTC sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
 
     <div class="bloc">
         <a href="https://tinyurl.com/Kryptis" rel="dofollow"><img class="social-icon" src="assets/whatsapp.svg"></a><a href="https://youtube.com/Jojothebigboss"><img class="social-icon" src="assets/youtube.svg"></a><a href="https://instagram.com/@jsrl_prso15"><img class="social-icon" src="assets/instagram.svg"></a>

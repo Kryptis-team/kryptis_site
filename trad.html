@@ -161,38 +161,37 @@
             <img src="/assets/kryptis_logo.svg" alt="Kryptis Logo" id="logo">
             <p  id="nom">Kryptis</p>
         </div>
-        <h1 >Kryptis - Online Translator</h1>
+        <h1 >Kryptis - Traducteur</h1>
         <nav aria-label="Main navigation"  data-i18n-attr="aria-label">
             <ul class="main-nav">
-                <li><a href="/index.html" >Home</a></li>
-                <li><a href="/trad.html" >Online Translator</a></li>
+                <li><a href="/index.html" >Accueil</a></li>
+                <li><a href="/trad.html" ><strong>Traducteur en ligne</strong></a></li>
             </ul>
         </nav>
     </header>
 
     <main class="main">
         <section>
-            <h2 >Online Code Translator</h2>
-            <p >Translate text using various codes and ciphers. Select a code, choose the direction, and type!</p>
+            <h2 >Traducteur en ligne</h2>
+            <p >Traduisez des messages dans différents codes. Sélectionnez un code, choisissez le sens, et écrivez!</p>
 
             <div class="trad-container" id="trad-box">
-                <button id="saveHistory" onclick="window.location.href='/auth.html'">Save History</button>
+                <!--<button id="saveHistory" onclick="window.location.href='/auth.html'">Save History</button>-->
                 <!-- Sélecteur de code + direction -->
                 <div class="trad-selects">
                     <select id="codeSelect">
-                        <option value="morse">Morse Code</option>
-                        <option value="vigenere">Vigenère Cipher</option>
-                        <option value="avocat">Avocat (A=K)</option>
-                        <option value="sizaine">Sizaine (6=N)</option>
-                        <option value="cassis">Cassis (K=6)</option>
-                        <option value="cassette">Cassette (K=7)</option>
-                        <option value="rot13">ROT13</option>
-                        <option value="binary">Binary</option>
+                        <option value="morse">Code Morse</option>
+                        <option value="vigenere">Chiffre de Vigenère</option>
+                        <option value="avocat">Code Avocat (A=K)</option>
+                        <option value="sizaine">Code Sizaine (6=N)</option>
+                        <option value="cassis">Code Cassis (K=6)</option>
+                        <option value="cassette">Code Cassette (K=7)</option>
+                        <option value="binary">Language Binaire</option>
                     </select>
 
                     <div class="direction-toggle">
-                        <button id="btnEncode" class="active" onclick="setDirection('encode')">Encode →</button>
-                        <button id="btnDecode" onclick="setDirection('decode')">← Decode</button>
+                        <button id="btnEncode" class="active" onclick="setDirection('encode')">Coder →</button>
+                        <button id="btnDecode" onclick="setDirection('decode')">← Décoder</button>
                     </div>
                 </div>
 
@@ -208,11 +207,11 @@
                 <!-- Zone entrée / sortie -->
                 <div class="io-row">
                     <div class="io-box">
-                        <label for="inputText" id="inputLabel">Input</label>
+                        <label for="inputText" id="inputLabel">Saisie</label>
                         <textarea id="inputText" rows="4" placeholder="Type here..."></textarea>
                     </div>
                     <div class="io-box">
-                        <label id="outputLabel">Output</label>
+                        <label id="outputLabel">Codage</label>
                         <output id="outputText" aria-live="polite"></output>
                     </div>
                 </div>
@@ -228,12 +227,12 @@
                 <div id="errorMsg"></div>
 
             </div>
-            <p>Follow our <a href="https://tinyurl.com/Kryptis" rel="dofollow">WhatsApp</a> channel for updates, and visit our <a href="https://chat.whatsapp.com/invite/0029VbCrJj43LdQTsuytBo1Z" rel="dofollow">WhatsApp community</a> to help us about this project.</p>
+            <p>Suivez notre <a href="https://tinyurl.com/Kryptis" rel="dofollow">chaine WhatsApp</a> pour découvrir les mises à jour, et rejoignez notre <a href="https://chat.whatsapp.com/invite/0029VbCrJj43LdQTsuytBo1Z" rel="dofollow">communauté WhatsApp</a> pour nous contriuer à ce projet qui nous tient à coeur.</p>
         </section>
     </main>
 
     <footer class="footer">
-        <p >Copyright © 2026 JJTC. All rights reserved.</p>
+        <p >Copyright © 2026 JJTC. Tout droits réservés.</p>
         <div class="bloc">
             <a href="https://tinyurl.com/Kryptis" rel="dofollow"><img class="social-icon" src="assets/whatsapp.svg"></a><a href="https://youtube.com/Jojothebigboss"><img class="social-icon" src="assets/youtube.svg"></a><a href="https://instagram.com/@jsrl_prso15"><img class="social-icon" src="assets/instagram.svg"></a>
             <a href="https://github.com/jrollo1612" target="_blank" rel="noopener noreferrer" ><img class="social-icon" src="assets/logo-github.svg"></a>
@@ -422,13 +421,6 @@
     }
 
     // ════════════════════════════════════════════
-    // ROT13 (décalage de 13)
-    // ════════════════════════════════════════════
-    function rot13(text) {
-        return text.split('').map(c => shiftLetter(c, 13)).join('');
-    }
-
-    // ════════════════════════════════════════════
     // BINAIRE
     // ════════════════════════════════════════════
     function textToBinary(text) {
@@ -448,14 +440,13 @@
     // DESCRIPTIONS
     // ════════════════════════════════════════════
     const CIPHER_INFO = {
-        morse:    'Morse Code: dots (.) and dashes (-) separated by spaces. Words separated by /.',
-        vigenere: 'Vigenère: polyalphabetic cipher using a keyword. Each letter is shifted by the corresponding key letter.',
-        avocat:   'Avocat (A=K): each letter is shifted +10 in the alphabet (A→K, B→L, etc.). Scout cipher.',
-        sizaine:  'Sizaine (6=N): each letter is replaced by its position in a group of 6 (A-F=1-6, G-L=1-6...). Scout cipher. Decoding shows all possibilities.',
-        cassis:   'Cassis (K=6): each letter is shifted -10 in the alphabet (K→A, L→B, etc.). Inverse of Avocat.',
-        cassette: 'Cassette (K=7): each letter is shifted +7 in the alphabet (A→H, B→I, etc.). Scout cipher.',
-        rot13:    'ROT13: each letter is shifted by 13. Encoding and decoding are identical.',
-        binary:   'Binary: each character is converted to its 8-bit binary representation.'
+        morse:    'Code morse : emoji ➖ pour un ta (long) et 🟣 pour un ti (court)',
+        vigenere: 'Vigénère: Codage d\'un message avec une clé selon un tableau.',
+        avocat:   'Avocat (A=K): Chaque lettre est remplacée par une autre selon un décalage de 10.',
+        sizaine:  'Sizaine (6=N): Chaque lettre est remplacée par un nombre entre 1 et 26 avec N = 6.',
+        cassis:   'Cassis (K=6): Chaque lettre est remplacée par un nombre entre 1 et 26 avec K=6.',
+        cassette: 'Cassette (K=7): Chaque lettre est remplacée par un nombre entre 1 et 26 avec K=7.',
+        binary:   'Binaire: Chaque lettre est convertie en base 2 sur 1 octet (8 bits) par lettre.'
     };
 
     // ════════════════════════════════════════════
@@ -582,8 +573,8 @@
             }
         }
         if (codeSelect.value == "morse") {
-            document.getElementById('inputLabel').textContent = direction === 'encode' ? 'Text' : 'Morse';
-            document.getElementById('outputLabel').textContent = direction === 'encode' ? 'Morse' : 'Text';
+            document.getElementById('inputLabel').textContent = "Saisie"
+            document.getElementById('outputLabel').textContent = direction === 'encode' ? 'Codage' : 'Décodage';
         }
         codeSelect.addEventListener('change', onCodeChange);
         input.addEventListener('input', translate);
